@@ -14,4 +14,4 @@ Start in the tileEngine folder since it is the first folder. Go to Content and c
 
 The same must be done for all other files in the other two folders. Just remember, all .cs and resource files must be moved. Resourse files are .xml, texture, and similar files.
 
-*NOTE* any files you do not commit will screw up EVERYTHING.
+*NOTE* any files you have edited and do not commit will screw up EVERYTHING.
