@@ -84,22 +84,22 @@ namespace RolePlaying
             if (portalEntry == null)
             {
                 // no portal - use the spawn position
-                partyLeaderPosition.TilePosition = map.SpawnMapPosition;
-                partyLeaderPosition.TileOffset = Vector2.Zero;
-                partyLeaderPosition.Direction = Direction.South;
+                player.PartyLeaderPosition.TilePosition = map.SpawnMapPosition;
+                player.partyLeaderPosition.TileOffset = Vector2.Zero;
+                player.partyLeaderPosition.Direction = Direction.South;
             }
             else
             {
                 // use the portal provided, which may include automatic movement
-                partyLeaderPosition.TilePosition = portalEntry.MapPosition;
-                partyLeaderPosition.TileOffset = Vector2.Zero;
-                partyLeaderPosition.Direction = portalEntry.Direction;
-                autoPartyLeaderMovement = Vector2.Multiply(
+                player.partyLeaderPosition.TilePosition = portalEntry.MapPosition;
+                player.partyLeaderPosition.TileOffset = Vector2.Zero;
+                player.partyLeaderPosition.Direction = portalEntry.Direction;
+                player.autoPartyLeaderMovement = Vector2.Multiply(
                     new Vector2(map.TileSize.X, map.TileSize.Y), new Vector2(
                     portalEntry.Content.LandingMapPosition.X -
-                        partyLeaderPosition.TilePosition.X,
+                        player.partyLeaderPosition.TilePosition.X,
                     portalEntry.Content.LandingMapPosition.Y -
-                        partyLeaderPosition.TilePosition.Y));
+                        player.partyLeaderPosition.TilePosition.Y));
             }
         }
 
@@ -149,18 +149,23 @@ namespace RolePlaying
         /// <remarks>
         /// The movementCollisionTolerance constant should be a multiple of this number.
         /// </remarks>
-        private const float partyLeaderMovementSpeed = 3f;
+        /// 
+        //private const float partyLeaderMovementSpeed = 3f;
 
+        //This is the new built class to handle all player options
+        //like movement and money etc.
+        public static MainPlayer player = new MainPlayer();
+        public static NPC npc1 = new NPC();
 
         /// <summary>
         /// The current position of the party leader.
         /// </summary>
-        private static PlayerPosition partyLeaderPosition = new PlayerPosition();
-        public static PlayerPosition PartyLeaderPosition
-        {
-            get { return partyLeaderPosition; }
-            set { partyLeaderPosition = value; }
-        }
+        //private static PlayerPosition player.partyLeaderPosition = new PlayerPosition();
+        //public static PlayerPosition player.partyLeaderPosition
+        //{
+        //    get { return player.partyLeaderPosition; }
+        //    set { player.partyLeaderPosition = value; }
+        //}
 
 
         /// <summary>
@@ -169,7 +174,7 @@ namespace RolePlaying
         /// <remarks>
         /// This is typically used for automatic movement when spawning on a map.
         /// </remarks>
-        private static Vector2 autoPartyLeaderMovement = Vector2.Zero;
+        //private static Vector2 autoPartyLeaderMovement = Vector2.Zero;
 
 
         /// <summary>
@@ -179,26 +184,26 @@ namespace RolePlaying
         private static Vector2 UpdatePartyLeaderAutoMovement(GameTime gameTime)
         {
             // check for any remaining auto-movement
-            if (autoPartyLeaderMovement == Vector2.Zero)
+            if (player.autoPartyLeaderMovement == Vector2.Zero)
             {
                 return Vector2.Zero;
             }
 
             // get the remaining-movement direction
-            Vector2 autoMovementDirection = Vector2.Normalize(autoPartyLeaderMovement);
+            Vector2 autoMovementDirection = Vector2.Normalize(player.autoPartyLeaderMovement);
 
             // calculate the potential movement vector
             Vector2 movement = Vector2.Multiply(autoMovementDirection,
-                partyLeaderMovementSpeed);
+                player.moveSpeed);
 
             // limit the potential movement vector by the remaining auto-movement
             movement.X = Math.Sign(movement.X) * MathHelper.Min(Math.Abs(movement.X),
-                Math.Abs(autoPartyLeaderMovement.X));
+                Math.Abs(player.autoPartyLeaderMovement.X));
             movement.Y = Math.Sign(movement.Y) * MathHelper.Min(Math.Abs(movement.Y),
-                Math.Abs(autoPartyLeaderMovement.Y));
+                Math.Abs(player.autoPartyLeaderMovement.Y));
 
             // remove the movement from the total remaining auto-movement
-            autoPartyLeaderMovement -= movement;
+            player.autoPartyLeaderMovement -= movement;
 
             return movement;
         }
@@ -218,60 +223,60 @@ namespace RolePlaying
 #if !XBOX
             if(keyboardState.IsKeyDown(Keys.Up))
             {
-                if (CanPartyLeaderMoveUp())
+                if (CanCharMoveUp())
                 {
-                    desiredMovement.Y -= partyLeaderMovementSpeed;
+                    desiredMovement.Y -= player.moveSpeed;
                 }
             }
             if(keyboardState.IsKeyDown(Keys.Down))
             {
-                if (CanPartyLeaderMoveDown())
+                if (CanCharMoveDown())
                 {
-                    desiredMovement.Y += partyLeaderMovementSpeed;
+                    desiredMovement.Y += player.moveSpeed;
                 }
             }
             if (keyboardState.IsKeyDown(Keys.Left))
             {
-                if (CanPartyLeaderMoveLeft())
+                if (CanCharMoveLeft())
                 {
-                    desiredMovement.X -= partyLeaderMovementSpeed;
+                    desiredMovement.X -= player.moveSpeed;
                 }
             }
             if (keyboardState.IsKeyDown(Keys.Right))
             {
-                if (CanPartyLeaderMoveRight())
+                if (CanCharMoveRight())
                 {
-                    desiredMovement.X += partyLeaderMovementSpeed;
+                    desiredMovement.X += player.moveSpeed;
                 }
             }
 #endif
             // accumulate the desired direction from user input 
             if (gamePadState.ThumbSticks.Left.Y > 0f)
             {
-                if (CanPartyLeaderMoveUp())
+                if (CanCharMoveUp())
                 {
-                    desiredMovement.Y -= partyLeaderMovementSpeed;
+                    desiredMovement.Y -= player.moveSpeed;
                 }
             }
             if (gamePadState.ThumbSticks.Left.Y < 0f)
             {
-                if (CanPartyLeaderMoveDown())
+                if (CanCharMoveDown())
                 {
-                    desiredMovement.Y += partyLeaderMovementSpeed;
+                    desiredMovement.Y += player.moveSpeed;
                 }
             }
             if (gamePadState.ThumbSticks.Left.X < 0f)
             {
-                if (CanPartyLeaderMoveLeft())
+                if (CanCharMoveLeft())
                 {
-                    desiredMovement.X -= partyLeaderMovementSpeed;
+                    desiredMovement.X -= player.moveSpeed;
                 }
             }
             if (gamePadState.ThumbSticks.Left.X > 0f)
             {
-                if (CanPartyLeaderMoveRight())
+                if (CanCharMoveRight())
                 {
-                    desiredMovement.X += partyLeaderMovementSpeed;
+                    desiredMovement.X += player.moveSpeed;
                 }
             }
             if (desiredMovement == Vector2.Zero)
@@ -301,30 +306,30 @@ namespace RolePlaying
         /// <summary>
         /// Returns true if the player can move up from their current position.
         /// </summary>
-        private static bool CanPartyLeaderMoveUp()
+        private static bool CanCharMoveUp()
         {
             // if they're not within the tolerance of the next tile, then this is moot
-            if (partyLeaderPosition.TileOffset.Y > -movementCollisionTolerance)
+            if (player.partyLeaderPosition.TileOffset.Y > -movementCollisionTolerance)
             {
                 return true;
             }
 
             // if the player is at the outside left and right edges, 
             // then check the diagonal tiles
-            if (partyLeaderPosition.TileOffset.X < -movementCollisionTolerance)
+            if (player.partyLeaderPosition.TileOffset.X < -movementCollisionTolerance)
             {
                 if (map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X - 1,
-                    partyLeaderPosition.TilePosition.Y - 1)))
+                    player.partyLeaderPosition.TilePosition.X - 1,
+                    player.partyLeaderPosition.TilePosition.Y - 1)))
                 {
                     return false;
                 }
             }
-            else if (partyLeaderPosition.TileOffset.X > movementCollisionTolerance)
+            else if (player.partyLeaderPosition.TileOffset.X > movementCollisionTolerance)
             {
                 if (map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X + 1,
-                    partyLeaderPosition.TilePosition.Y - 1)))
+                    player.partyLeaderPosition.TilePosition.X + 1,
+                    player.partyLeaderPosition.TilePosition.Y - 1)))
                 {
                     return false;
                 }
@@ -332,38 +337,38 @@ namespace RolePlaying
 
             // check the tile above the current one
             return !map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X,
-                    partyLeaderPosition.TilePosition.Y - 1));
+                    player.partyLeaderPosition.TilePosition.X,
+                    player.partyLeaderPosition.TilePosition.Y - 1));
         }
 
 
         /// <summary>
         /// Returns true if the player can move down from their current position.
         /// </summary>
-        private static bool CanPartyLeaderMoveDown()
+        private static bool CanCharMoveDown()
         {
             // if they're not within the tolerance of the next tile, then this is moot
-            if (partyLeaderPosition.TileOffset.Y < movementCollisionTolerance)
+            if (player.partyLeaderPosition.TileOffset.Y < movementCollisionTolerance)
             {
                 return true;
             }
 
             // if the player is at the outside left and right edges, 
             // then check the diagonal tiles
-            if (partyLeaderPosition.TileOffset.X < -movementCollisionTolerance)
+            if (player.partyLeaderPosition.TileOffset.X < -movementCollisionTolerance)
             {
                 if (map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X - 1,
-                    partyLeaderPosition.TilePosition.Y + 1)))
+                    player.partyLeaderPosition.TilePosition.X - 1,
+                    player.partyLeaderPosition.TilePosition.Y + 1)))
                 {
                     return false;
                 }
             }
-            else if (partyLeaderPosition.TileOffset.X > movementCollisionTolerance)
+            else if (player.partyLeaderPosition.TileOffset.X > movementCollisionTolerance)
             {
                 if (map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X + 1,
-                    partyLeaderPosition.TilePosition.Y + 1)))
+                    player.partyLeaderPosition.TilePosition.X + 1,
+                    player.partyLeaderPosition.TilePosition.Y + 1)))
                 {
                     return false;
                 }
@@ -371,38 +376,38 @@ namespace RolePlaying
 
             // check the tile below the current one
             return !map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X,
-                    partyLeaderPosition.TilePosition.Y + 1));
+                    player.partyLeaderPosition.TilePosition.X,
+                    player.partyLeaderPosition.TilePosition.Y + 1));
         }
 
 
         /// <summary>
         /// Returns true if the player can move left from their current position.
         /// </summary>
-        private static bool CanPartyLeaderMoveLeft()
+        private static bool CanCharMoveLeft()
         {
             // if they're not within the tolerance of the next tile, then this is moot
-            if (partyLeaderPosition.TileOffset.X > -movementCollisionTolerance)
+            if (player.partyLeaderPosition.TileOffset.X > -movementCollisionTolerance)
             {
                 return true;
             }
 
             // if the player is at the outside left and right edges, 
             // then check the diagonal tiles
-            if (partyLeaderPosition.TileOffset.Y < -movementCollisionTolerance)
+            if (player.partyLeaderPosition.TileOffset.Y < -movementCollisionTolerance)
             {
                 if (map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X - 1,
-                    partyLeaderPosition.TilePosition.Y - 1)))
+                    player.partyLeaderPosition.TilePosition.X - 1,
+                    player.partyLeaderPosition.TilePosition.Y - 1)))
                 {
                     return false;
                 }
             }
-            else if (partyLeaderPosition.TileOffset.Y > movementCollisionTolerance)
+            else if (player.partyLeaderPosition.TileOffset.Y > movementCollisionTolerance)
             {
                 if (map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X - 1,
-                    partyLeaderPosition.TilePosition.Y + 1)))
+                    player.partyLeaderPosition.TilePosition.X - 1,
+                    player.partyLeaderPosition.TilePosition.Y + 1)))
                 {
                     return false;
                 }
@@ -410,38 +415,38 @@ namespace RolePlaying
 
             // check the tile to the left of the current one
             return !map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X - 1,
-                    partyLeaderPosition.TilePosition.Y));
+                    player.partyLeaderPosition.TilePosition.X - 1,
+                    player.partyLeaderPosition.TilePosition.Y));
         }
 
 
         /// <summary>
         /// Returns true if the player can move right from their current position.
         /// </summary>
-        private static bool CanPartyLeaderMoveRight()
+        private static bool CanCharMoveRight()
         {
             // if they're not within the tolerance of the next tile, then this is moot
-            if (partyLeaderPosition.TileOffset.X < movementCollisionTolerance)
+            if (player.partyLeaderPosition.TileOffset.X < movementCollisionTolerance)
             {
                 return true;
             }
 
             // if the player is at the outside left and right edges, 
             // then check the diagonal tiles
-            if (partyLeaderPosition.TileOffset.Y < -movementCollisionTolerance)
+            if (player.partyLeaderPosition.TileOffset.Y < -movementCollisionTolerance)
             {
                 if (map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X + 1,
-                    partyLeaderPosition.TilePosition.Y - 1)))
+                    player.partyLeaderPosition.TilePosition.X + 1,
+                    player.partyLeaderPosition.TilePosition.Y - 1)))
                 {
                     return false;
                 }
             }
-            else if (partyLeaderPosition.TileOffset.Y > movementCollisionTolerance)
+            else if (player.partyLeaderPosition.TileOffset.Y > movementCollisionTolerance)
             {
                 if (map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X + 1,
-                    partyLeaderPosition.TilePosition.Y + 1)))
+                    player.partyLeaderPosition.TilePosition.X + 1,
+                    player.partyLeaderPosition.TilePosition.Y + 1)))
                 {
                     return false;
                 }
@@ -449,8 +454,8 @@ namespace RolePlaying
 
             // check the tile to the right of the current one
             return !map.IsBlocked(new Point(
-                    partyLeaderPosition.TilePosition.X + 1,
-                    partyLeaderPosition.TilePosition.Y));
+                    player.partyLeaderPosition.TilePosition.X + 1,
+                    player.partyLeaderPosition.TilePosition.Y));
         }
 
 
@@ -476,13 +481,13 @@ namespace RolePlaying
                 // calculate the desired position
                 if (userMovement != Vector2.Zero)
                 {
-                    Point desiredTilePosition = partyLeaderPosition.TilePosition;
-                    Vector2 desiredTileOffset = partyLeaderPosition.TileOffset;
+                    Point desiredTilePosition = player.partyLeaderPosition.TilePosition;
+                    Vector2 desiredTileOffset = player.partyLeaderPosition.TileOffset;
                     PlayerPosition.CalculateMovement(
                         Vector2.Multiply(userMovement, 15f),
                         ref desiredTilePosition, ref desiredTileOffset);
                     // check for collisions or encounters in the new tile
-                    if ((partyLeaderPosition.TilePosition != desiredTilePosition) &&
+                    if ((player.partyLeaderPosition.TilePosition != desiredTilePosition) &&
                         !MoveIntoTile(desiredTilePosition))
                     {
                         userMovement = Vector2.Zero;
@@ -491,20 +496,20 @@ namespace RolePlaying
             }
 
             // move the party
-            Point oldPartyLeaderTilePosition = partyLeaderPosition.TilePosition;
-            partyLeaderPosition.Move(autoMovement + userMovement);
+            Point oldPartyLeaderTilePosition = player.partyLeaderPosition.TilePosition;
+            player.partyLeaderPosition.Move(autoMovement + userMovement);
 
             // if the tile position has changed, check for random combat
             ////if ((autoMovement == Vector2.Zero) &&
-            ////    (partyLeaderPosition.TilePosition != oldPartyLeaderTilePosition))
+            ////    (player.partyLeaderPosition.TilePosition != oldPartyLeaderTilePosition))
             ////{
             ////    Session.CheckForRandomCombat(Map.RandomCombat);
             ////}
 
             // adjust the map origin so that the party is at the center of the viewport
-            ////////mapOriginPosition += viewportCenter - (partyLeaderPosition.ScreenPosition +
+            ////////mapOriginPosition += viewportCenter - (player.partyLeaderPosition.ScreenPosition +
             ////////    Session.Party.Players[0].MapSprite.SourceOffset);
-            mapOriginPosition += viewportCenter - partyLeaderPosition.ScreenPosition;
+            mapOriginPosition += viewportCenter - player.partyLeaderPosition.ScreenPosition;
 
             // make sure the boundaries of the map are never inside the viewport
             mapOriginPosition.X = MathHelper.Min(mapOriginPosition.X, viewport.X);

@@ -54,11 +54,13 @@ namespace tileEngine
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
+            TileEngine.player.sprite = Content.Load<Texture2D>(@"Sprites\\amg1_fr3");
             // set the viewport for the tile engine 
             TileEngine.Viewport = graphics.GraphicsDevice.Viewport;
             // load the initial map and set it into the tile engine 
             TileEngine.SetMap(Content.Load<Map>(@"Maps\\Map001"), null);
+
+            
         }
 
         /// <summary>
@@ -83,6 +85,8 @@ namespace tileEngine
 
             // TODO: Add your update logic here
             TileEngine.Update(gameTime);
+            
+            //TileEngine.npc1.NPCPosition = TileEngine.player.partyLeaderPosition;
 
             base.Update(gameTime);
         }
@@ -108,9 +112,19 @@ namespace tileEngine
             // -- for now, clear a small rectangle to white
             // -- Clear cannot be called from within a SpriteBatch block
             spriteBatch.End();
-            Vector2 position = TileEngine.PartyLeaderPosition.ScreenPosition;
+            Vector2 playerPosition = TileEngine.player.PartyLeaderPosition.ScreenPosition;
+            /*
+            Rectangle playerRect = new Rectangle();
+            
+            playerRect.Width = TileEngine.player.sprite.Width;
+            playerRect.Height = TileEngine.player.sprite.Height;
+            playerRect.X = (int)playerPosition.X - (int)(playerRect.Width / 2);
+            playerRect.Y = (int)playerPosition.Y - (int)(playerRect.Height / 2);
+            spriteBatch.Draw(TileEngine.player.sprite, playerRect, Color.White); 
+             */
             Rectangle[] clearRects = new Rectangle[1];
-            clearRects[0] = new Rectangle((int)position.X, (int)position.Y, 20, 20);
+            clearRects[0] = new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 20, 20);
+            //clearRects[1] = new Rectangle((int)TileEngine.npc1.NPCPosition.ScreenPosition.X, (int)TileEngine.npc1.NPCPosition.ScreenPosition.Y, 20, 20);
             graphics.GraphicsDevice.Clear(ClearOptions.Target, Color.White, 0f, 0, clearRects);
             spriteBatch.Begin();
             ////////////////////////////////////////////////////////////////////////////////////////
