@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using RolePlaying;
 using RolePlayingGameData;
+//Sean Code Start
+using AnimatedSprite;
 
 namespace tileEngine
 {
@@ -22,6 +24,14 @@ namespace tileEngine
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        //Sean Code start
+        private AnimatedTexture SpriteTexture;
+        private const float Rotation = 0;
+        private const float Scale = 2.0f;
+        private const float Depth = 0.5f;
+
+
+
 
         public Game1()
         {
@@ -29,6 +39,8 @@ namespace tileEngine
             Content.RootDirectory = "Content";
             // configure the content manager for the tile engine 
             TileEngine.ContentManager = Content;
+            SpriteTexture=new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
+
         }
 
         /// <summary>
@@ -60,7 +72,7 @@ namespace tileEngine
             // load the initial map and set it into the tile engine 
             TileEngine.SetMap(Content.Load<Map>(@"Maps\\Map001"), null);
 
-            
+            SpriteTexture.Load(Content, "amg1_fr1", 1, 1);
         }
 
         /// <summary>
@@ -85,7 +97,8 @@ namespace tileEngine
 
             // TODO: Add your update logic here
             TileEngine.Update(gameTime);
-            
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            SpriteTexture.UpdateFrame(elapsed);
             //TileEngine.npc1.NPCPosition = TileEngine.player.partyLeaderPosition;
 
             base.Update(gameTime);
@@ -124,9 +137,11 @@ namespace tileEngine
              */
             Rectangle[] clearRects = new Rectangle[1];
             clearRects[0] = new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 20, 20);
+            
             //clearRects[1] = new Rectangle((int)TileEngine.npc1.NPCPosition.ScreenPosition.X, (int)TileEngine.npc1.NPCPosition.ScreenPosition.Y, 20, 20);
-            graphics.GraphicsDevice.Clear(ClearOptions.Target, Color.White, 0f, 0, clearRects);
+            //graphics.GraphicsDevice.Clear(ClearOptions.Target, Color.White, 0f, 0, clearRects);
             spriteBatch.Begin();
+            SpriteTexture.DrawFrame(spriteBatch, new Vector2((int)playerPosition.X, (int)playerPosition.Y));
             ////////////////////////////////////////////////////////////////////////////////////////
             TileEngine.DrawLayers(spriteBatch, false, false, true);
             spriteBatch.End();
