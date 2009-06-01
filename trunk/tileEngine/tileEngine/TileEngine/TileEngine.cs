@@ -212,6 +212,39 @@ namespace RolePlaying
         {
             Vector2 desiredMovement = Vector2.Zero;
             GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
+            KeyboardState keyboardState = Keyboard.GetState();
+            KeyboardState oldKeyboardState = keyboardState;
+
+#if !XBOX
+            if(keyboardState.IsKeyDown(Keys.Up))
+            {
+                if (CanPartyLeaderMoveUp())
+                {
+                    desiredMovement.Y -= partyLeaderMovementSpeed;
+                }
+            }
+            if(keyboardState.IsKeyDown(Keys.Down))
+            {
+                if (CanPartyLeaderMoveDown())
+                {
+                    desiredMovement.Y += partyLeaderMovementSpeed;
+                }
+            }
+            if (keyboardState.IsKeyDown(Keys.Left))
+            {
+                if (CanPartyLeaderMoveLeft())
+                {
+                    desiredMovement.X -= partyLeaderMovementSpeed;
+                }
+            }
+            if (keyboardState.IsKeyDown(Keys.Right))
+            {
+                if (CanPartyLeaderMoveRight())
+                {
+                    desiredMovement.X += partyLeaderMovementSpeed;
+                }
+            }
+#endif
             // accumulate the desired direction from user input 
             if (gamePadState.ThumbSticks.Left.Y > 0f)
             {
