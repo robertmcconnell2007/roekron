@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using RolePlayingGameData;
+using AnimatedSprite;
 #endregion
 
 namespace RolePlaying
@@ -18,7 +19,14 @@ namespace RolePlaying
         public float MP;
         public float Gold;
         public float moveSpeed = 3f;
-        public Texture2D sprite;
+
+
+        public AnimatedTexture SpriteTexture;
+        public float Rotation = 0;
+        public float Scale = 2.0f;
+        public float Depth = 0.5f;
+
+
         public PlayerPosition partyLeaderPosition = new PlayerPosition();
         public PlayerPosition PartyLeaderPosition
         {
