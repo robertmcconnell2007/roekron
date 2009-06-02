@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="RolePlayingGameData.Map">
+      <Name>ItemShop001</Name>
+      <MapDimensions>10 10</MapDimensions>
+      <TileSize>64 64</TileSize>
+      <SpawnMapPosition>11 2</SpawnMapPosition>
+      <TextureName>ShopTiles1</TextureName>
+      <!--<CombatTextureName>CombatBkgdVillage</CombatTextureName>
+      <MusicCueName>BeachTheme</MusicCueName>
+      <CombatMusicCueName>BattleTheme</CombatMusicCueName>-->
+      <BaseLayer>
+        8   6   6   6   6   6   6   6   6   5
+        2   0   0   0   0   0   0   0   0   1
+        2   0   0   0   0   0   0   0   0   1
+        2   0   0   0   0   0   0   0   0   1
+        2   0   0   0   0   0   0   0   0   1
+        2   0   0   0   0   0   0   0   0   1
+        2   0   0   0   0   0   0   0   0   1
+        2   0   0   0   0   0   0   0   0   1
+        9   0   0   0   0   0   0   0   0   10
+        0   0   0   9   7   10  0   0   0   0
+      </BaseLayer>
+      <FringeLayer>
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+      </FringeLayer>
+      <ObjectLayer>
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+        -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+      </ObjectLayer>
+      <CollisionLayer>
+        1 0 0 0 0 0 0 0 0 1
+        1 0 0 0 0 0 0 0 0 1
+        1 0 0 0 0 0 0 0 0 1
+        1 0 0 0 0 0 0 0 0 1
+        1 0 0 0 0 0 0 0 0 1
+        1 0 0 0 0 0 0 0 0 1
+        1 0 0 0 0 0 0 0 0 1
+        1 0 0 0 0 0 0 0 0 1
+        1 0 0 0 0 0 0 0 0 1
+        1 1 1 1 0 1 1 1 1 1
+      </CollisionLayer>
+      <Portals>
+          <Item>
+			  <Name>Enter</Name>
+			  <LandingMapPosition>4 8</LandingMapPosition>
+              <DestinationMapContentName>Town001</DestinationMapContentName>
+              <DestinationMapPortalName>ItemShop001</DestinationMapPortalName>
+          </Item>
+      </Portals>
+	  <PortalEntries>
+		  <Item>
+			  <ContentName>Enter</ContentName>
+			  <MapPosition>4 9</MapPosition>
+		  </Item>
+	  </PortalEntries>
+	  <!--<ChestEntries />
+      <FixedCombatEntries />
+      <RandomCombat>
+          <CombatProbability>0</CombatProbability>
+          <FleeProbability>50</FleeProbability>
+          <MonsterCountRange>
+              <Minimum>1</Minimum>
+              <Maximum>3</Maximum>
+          </MonsterCountRange>
+          <Entries>
+              <Item>
+                  <ContentName>GoblinGrunt</ContentName>
+                  <Count>1</Count>
+                  <Weight>100</Weight>
+              </Item>
+          </Entries>
+      </RandomCombat>
+      <QuestNpcEntries>
+          <Item>
+              <ContentName>JangElder</ContentName>
+              <MapPosition>2 14</MapPosition>
+              <Direction>SouthEast</Direction>
+          </Item>
+          <Item>
+              <ContentName>Ujar</ContentName>
+              <MapPosition>20 14</MapPosition>
+              <Direction>SouthWest</Direction>
+          </Item>
+      </QuestNpcEntries>
+      <PlayerNpcEntries>
+          <Item>
+              <ContentName>Nykkas</ContentName>
+              <MapPosition>11 16</MapPosition>
+              <Direction>North</Direction>
+          </Item>
+      </PlayerNpcEntries>
+      <InnEntries />
+      <StoreEntries />-->
+  </Asset>
+</XnaContent>
