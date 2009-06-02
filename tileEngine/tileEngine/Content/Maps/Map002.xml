@@ -34,7 +34,7 @@
           50  50  50  50  50  52  79  95  95  95  95  95  95  95  95  95  78  48  50  50  50  50  50
           77  77  77  77  77  77  99  95  95  95  95  95  95  95  95  95  98  77  77  77  77  77  77
           95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95
-          95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95  95
+          95  95  95  95  95  95  95  95  95  95  95 253  95  95  95  95  95  95  95  95  95  95  95
       </BaseLayer>
       <FringeLayer>
           263 155 156 157 158 155 156 157 158  -1  -1  -1  -1  -1 157 158 155 156 157 158 155 156 263
@@ -61,7 +61,7 @@
           -1  -1  -1  -1  -1  -1  -1  -1  -1  -1 252 253 254  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
           -1  -1  -1  -1  -1  -1  -1  -1  -1  -1 252 253 254  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
           -1  -1  -1  -1  -1  -1  -1  -1  -1  -1 252 253 254  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
-          -1  -1  -1  -1  -1  -1  -1  -1  -1  -1 252 253 254  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
+          -1  -1  -1  -1  -1  -1  -1  -1  -1  -1 252 238 254  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1
       </FringeLayer>
       <ObjectLayer>
           150  -1  -1 149 150  -1  -1 149 150  -1  -1  -1  -1  -1 149 150  -1  -1 149 150  -1  -1 149
@@ -151,8 +151,8 @@
           <Item>
 			  <Name>P6</Name>
 			  <LandingMapPosition>11 22</LandingMapPosition>
-              <DestinationMapContentName>Map003</DestinationMapContentName>
-              <DestinationMapPortalName>P1</DestinationMapPortalName>
+              <DestinationMapContentName>Map001</DestinationMapContentName>
+              <DestinationMapPortalName>P5</DestinationMapPortalName>
           </Item>
       </Portals>
 	  <PortalEntries>
