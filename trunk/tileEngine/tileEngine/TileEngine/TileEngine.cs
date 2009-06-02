@@ -25,6 +25,7 @@ namespace RolePlaying
     static class TileEngine
     {
         public static ContentManager ContentManager = null;
+        public static Random rand = new Random();
         #region Map
 
 
@@ -80,6 +81,8 @@ namespace RolePlaying
             // reset the map origin, which will be recalculate on the first update
             mapOriginPosition = Vector2.Zero;
 
+            //this needs to be moved later
+
             // move the party to its initial position
             if (portalEntry == null)
             {
@@ -87,6 +90,10 @@ namespace RolePlaying
                 player.PartyLeaderPosition.TilePosition = map.SpawnMapPosition;
                 player.partyLeaderPosition.TileOffset = Vector2.Zero;
                 player.partyLeaderPosition.Direction = Direction.South;
+
+                npc1.npcPosition.TilePosition = map.SpawnMapPosition;
+                npc1.npcPosition.TileOffset = Vector2.Zero;
+                npc1.npcPosition.Direction = Direction.South;
             }
             else
             {
@@ -100,6 +107,10 @@ namespace RolePlaying
                         player.partyLeaderPosition.TilePosition.X,
                     portalEntry.Content.LandingMapPosition.Y -
                         player.partyLeaderPosition.TilePosition.Y));
+
+                npc1.npcPosition.TilePosition = portalEntry.MapPosition;
+                npc1.npcPosition.TileOffset = Vector2.Zero;
+                npc1.npcPosition.Direction = portalEntry.Direction;
             }
         }
 
@@ -495,6 +506,11 @@ namespace RolePlaying
                 }
             }
 
+            if (rand.Next(1, 100) > 90)
+            {
+
+            }
+
             // move the party
             Point oldPartyLeaderTilePosition = player.partyLeaderPosition.TilePosition;
             player.partyLeaderPosition.Move(autoMovement + userMovement);
@@ -524,6 +540,7 @@ namespace RolePlaying
                 -(mapOriginPosition.Y + map.MapDimensions.Y * map.TileSize.Y), 0f);
         }
 
+        
         /// <summary>
         /// Performs any actions associated with moving into a new tile.
         /// </summary>
