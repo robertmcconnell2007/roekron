@@ -135,10 +135,10 @@
               <DestinationMapPortalName>P5</DestinationMapPortalName>
           </Item>
           <Item>
-            <Name>P5</Name>
+            <Name>ToDungeon1</Name>
             <LandingMapPosition>10 3</LandingMapPosition>
-            <DestinationMapContentName>Map002</DestinationMapContentName>
-            <DestinationMapPortalName>P6</DestinationMapPortalName>
+            <DestinationMapContentName>Dungeon1</DestinationMapContentName>
+            <DestinationMapPortalName>P2</DestinationMapPortalName>
           </Item>
         <Item>
           <Name>P6</Name>
@@ -165,7 +165,7 @@
 			  <MapPosition>11 22</MapPosition>
 		  </Item>
       <Item>
-        <ContentName>P5</ContentName>
+        <ContentName>ToDungeon1</ContentName>
         <MapPosition>11 3</MapPosition>
       </Item>
       <Item>
