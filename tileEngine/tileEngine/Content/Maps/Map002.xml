@@ -149,10 +149,10 @@
               <DestinationMapPortalName>P4</DestinationMapPortalName>
           </Item>
           <Item>
-			  <Name>P6</Name>
+			  <Name>ToDungeon1</Name>
 			  <LandingMapPosition>11 22</LandingMapPosition>
-              <DestinationMapContentName>Map001</DestinationMapContentName>
-              <DestinationMapPortalName>P5</DestinationMapPortalName>
+              <DestinationMapContentName>Dungeon1</DestinationMapContentName>
+              <DestinationMapPortalName>P1</DestinationMapPortalName>
           </Item>
       </Portals>
 	  <PortalEntries>
@@ -177,7 +177,7 @@
 			  <MapPosition>13 0</MapPosition>
 		  </Item>
 		  <Item>
-			  <ContentName>P6</ContentName>
+			  <ContentName>ToDungeon1</ContentName>
 			  <MapPosition>11 24</MapPosition>
 		  </Item>
 	  </PortalEntries>
